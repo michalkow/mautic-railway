@@ -57,9 +57,9 @@ ENV MAUTIC_MAILER_SPOOL_TYPE=$MAUTIC_MAILER_SPOOL_TYPE
 ENV MAUTIC_MAILER_SPOOL_PATH=$MAUTIC_MAILER_SPOOL_PATH
 ENV PHP_INI_DATE_TIMEZONE='UTC'
 
-# Add a small wrapper entrypoint for Railway
+# Our small wrapper that runs before the official entrypoint
 COPY docker-entrypoint-railway.sh /usr/local/bin/docker-entrypoint-railway.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint-railway.sh
 
+# Important: do NOT override CMD, only ENTRYPOINT
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint-railway.sh"]
-CMD ["apache2-foreground"]
